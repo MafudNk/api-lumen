@@ -18,3 +18,5 @@
 
 /* menjalankan serv php -S localhost:8000 -t public */
 $router->post('/product', 'ProductController@create');
+$router->get('/product', 'ProductController@index');
+$router->get('/product/{id}', 'ProductController@show');
