@@ -37,4 +37,46 @@ class ProductController extends Controller
 
         return response()->json($product);
     }
+    public function update(Request $request, $id)
+    {
+        /* get data from model find by id */
+        $product = Product::find($id);
+
+        /* jika product yang mau di ambil tidak ada beri pesan */
+        if (!$product) {
+            return response()->json(["message" => "yang mau di update datanya tidak ditemukan :( "], 404);
+        }
+
+        /* Ambil data tapi di validasi dulu*/
+        $this->validate($request, [
+            'nama' => 'string',
+            'harga' => 'integer',
+            'warna' => 'string',
+            'kondisi' => 'in:baru,lama',
+            'deskripsi' => 'string'
+        ]);
+        $data = $request->all();
+        /* update data from $data */
+        $product->fill($data);
+        /* save  */
+        $product->save();
+        /* Post data */
+        // $product = Product::updated($data);
+
+        return response()->json($product);
+    }
+    
+    public function destroy($id){
+         /* get data from model find by id */
+         $product = Product::find($id);
+
+         /* jika product yang mau di hapus tidak ada beri pesan */
+         if (!$product) {
+             return response()->json(["message" => "yang mau di dihapus datanya tidak ditemukan :( "], 404);
+         }
+         /* delete items */
+         $product->delete();
+
+         return response()->json(["message" => "items product sudah terhapus"]);
+    }
 }

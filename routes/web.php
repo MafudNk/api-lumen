@@ -17,6 +17,11 @@
 // });
 
 /* menjalankan serv php -S localhost:8000 -t public */
-$router->post('/product', 'ProductController@create');
+
+$router->post('/product_create', 'ProductController@create');
 $router->get('/product', 'ProductController@index');
 $router->get('/product/{id}', 'ProductController@show');
+$router->put('/product_update/{id}', 'ProductController@update');
+$router->delete('product_delete/{id}', 'ProductController@destroy');
+
+$router->post('register', 'UserController@register');
